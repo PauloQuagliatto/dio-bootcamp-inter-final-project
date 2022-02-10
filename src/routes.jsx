@@ -2,17 +2,17 @@ import { Routes, Route } from "react-router-dom";
 
 import { ContactsProvider } from "./context/ContactsContext";
 import Home from "./pages/Home";
-import Contacts from "./pages/Contacts";
+import Messages from "./pages/Messages";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route
-        path="/comments"
+        path="/messages"
         element={
           <ContactsProvider>
-            <Contacts />
+            <Messages />
           </ContactsProvider>
         }
       />

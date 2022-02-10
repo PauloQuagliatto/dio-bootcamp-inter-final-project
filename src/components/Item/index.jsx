@@ -1,11 +1,10 @@
-import React from "react";
+import { ListItem, ListItemText } from "@material-ui/core/";
 
 const Item = ({ name, details }) => {
   return (
-    <div>
-      <h1>{name}</h1>
-      <p>{details}</p>
-    </div>
+    <ListItem>
+      <ListItemText primary={name} secondary={details} />
+    </ListItem>
   );
 };
 

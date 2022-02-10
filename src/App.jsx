@@ -1,19 +1,23 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { Container } from "@material-ui/core/";
 
 import { CartProvider } from "./context/CartContext";
 
 import AppRoutes from "./routes";
-import GlobalStyle from "./styles/globals";
+
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <>
       <CartProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
+        <Container maxWidth="xl">
+          <Router>
+            <Header />
+            <AppRoutes />
+          </Router>
+        </Container>
       </CartProvider>
-      <GlobalStyle />
     </>
   );
 };

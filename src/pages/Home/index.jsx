@@ -1,29 +1,40 @@
 import React from "react";
+import { Paper, Grid, Typography, List, makeStyles } from "@material-ui/core/";
 
 import productsList from "../../services/productsList";
 
 import Item from "../../components/Item";
 import Card from "../../components/Card";
 
-import Container from "./styles";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    marginTop: "5px",
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+  },
+}));
 
 const HomePage = () => {
-    console.log(productsList);
-  const categorys = productsList.map((category) => {
-    const container = {};
-    container["id"] = category.id_categorys;
-    container["name"] = category.name_categorys;
+  const classes = useStyles();
+  const categories = productsList.map((category) => {
+    const container = {
+      id: category.id_categorys,
+      name: category.name_categorys,
+    };
     return container;
   });
 
-  const category = categorys
+  const category = categories
     .map(JSON.stringify)
     .filter(function (item, index, arr) {
       return arr.indexOf(item, index + 1) === -1;
     })
     .map(JSON.parse);
 
-  const arrayCategory = categorys.map((category) => category.name);
+  const arrayCategory = categories.map((category) => category.name);
   let count = {};
 
   for (let i = 0; i < arrayCategory.length; i++) {
@@ -34,22 +45,24 @@ const HomePage = () => {
   }
 
   return (
-    <Container>
-      <div>
-        <h5>Categorias</h5>
-        <li>
-          {category.map((category) => {
-            return (
-              <Item
-                key={category.id}
-                name={category.name}
-                details={count[category.name]}
-              />
-            );
-          })}
-        </li>
-      </div>
-      <div>
+    <Grid container spacing={3} className={classes.root}>
+      <Grid item xs={3}>
+        <Paper className={classes.paper}>
+          <Typography variant="h5">Categorias</Typography>
+          <List>
+            {category.map((category) => {
+              return (
+                <Item
+                  key={category.id}
+                  name={category.name}
+                  details={count[category.name]}
+                />
+              );
+            })}
+          </List>
+        </Paper>
+      </Grid>
+      <Grid container xs={9} spacing={3} className={classes.root}>
         {productsList.map((product) => {
           return (
             <Card key={product.id_product} product={product}>
@@ -57,8 +70,8 @@ const HomePage = () => {
             </Card>
           );
         })}
-      </div>
-    </Container>
+      </Grid>
+    </Grid>
   );
 };
 

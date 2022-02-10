@@ -1,29 +1,26 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Grid, Typography, Button } from "@material-ui/core/";
 import Cart from "../Cart";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <>
-      <Container>
-        <h3>Dio Shopping</h3>
-        <Link to="/">
-          <button>Home</button>
-        </Link>
-        <Link to="/contato">
-          <button>Contato</button>
-        </Link>
-        <button onClick={() => setIsOpen(true)}>
-          <span>
-            <BsCart />
-          </span>
-          <span>{cart.value}</span>
-        </button>
-      </Container>
-      <Cart isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+    <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      item
+      xs={12}
+    >
+      <Typography variant="h3">Dio Shopping</Typography>
+      <Link to="/">
+        <Button color="primary">Home</Button>
+      </Link>
+      <Link to="/messages">
+        <Button color="primary">Contato</Button>
+      </Link>
+      <Cart />
+    </Grid>
   );
 };
 

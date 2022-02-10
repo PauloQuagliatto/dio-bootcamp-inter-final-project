@@ -1,22 +1,32 @@
-import { Modal } from "react-modal";
-
 import useCart from "../../hooks/useCart";
 
-const Cart = ({isOpen, setIsOpen}) => {
-    const { }
-  const { cart } = useCart();
-  const dispatch = useDispatch();
-
-  const onRequestClose = () => {
-    setIsOpen(false);
-  }
+const Cart = () => {
+  const { cart, increaseQuantity, decreaseQuantity, removeItem, totalPrice } =
+    useCart();
 
   return (
-      <Modal
+    <>
+      <button
+        type="button"
+        className="btn btn-info"
+        data-bs-toggle="modal"
+        data-bs-target="#CartModal"
+      >
+        <span>
+          <i className="fas fa-shopping-cart"></i>
+        </span>
+        <span className="badge rounded-pill bg-info text-dark">
+          {cart.itemsCount}
+        </span>
+      </button>
+
+      {/* Modal */}
+      <div
         className="modal fade"
+        id="CartModal"
+        tabIndex="-1"
+        aria-labelledby="CartModalLabel"
         aria-hidden="true"
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
       >
         <div className="modal-dialog">
           <div className="modal-content">
@@ -38,24 +48,22 @@ const Cart = ({isOpen, setIsOpen}) => {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>Produto</th>
-                    <th>Qtd</th>
-                    <th>Preço</th>
-                    <th></th>
-                    <th></th>
-                    <th>Total</th>
+                    <th scope="col"></th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Qtd</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {cart.map((item) => {
+                  {cart.items.map((item, index) => {
                     return (
                       <tr key={item.id}>
                         <th>
                           <button
-                            onClick={() =>
-                              dispatch(cartActions.DeleteItem(cart, item))
-                            }
+                            onClick={() => removeItem(item.id)}
                             className="badge bg-danger"
                           >
                             <i className="fas fa-window-close"></i>
@@ -77,9 +85,7 @@ const Cart = ({isOpen, setIsOpen}) => {
                         <th>R$ {item.price.toFixed(2)}</th>
                         <th>
                           <button
-                            onClick={() =>
-                              dispatch(cartActions.AddItem(cart, item))
-                            }
+                            onClick={() => increaseQuantity(index)}
                             className="badge badge-pill bg-primary"
                           >
                             <i className="fas fa-plus"></i>
@@ -87,9 +93,7 @@ const Cart = ({isOpen, setIsOpen}) => {
                         </th>
                         <th>
                           <button
-                            onClick={() =>
-                              dispatch(cartActions.RemoveItem(cart, item))
-                            }
+                            onClick={() => decreaseQuantity(index)}
                             className="badge badge-pill bg-danger"
                           >
                             <i className="fas fa-minus"></i>
@@ -103,8 +107,8 @@ const Cart = ({isOpen, setIsOpen}) => {
                     <th colSpan="2" scope="col">
                       Total
                     </th>
-                    <th colSpan="3">{cart.value} itens</th>
-                    <th colSpan="2">R$ {totalPrice.toFixed(2)}</th>
+                    <th colSpan="3">{cart.itemsCount} itens</th>
+                    <th colSpan="2">R$ {totalPrice()}</th>
                   </tr>
                 </tbody>
               </table>
@@ -121,7 +125,8 @@ const Cart = ({isOpen, setIsOpen}) => {
             </div>
           </div>
         </div>
-      </Modal>
+      </div>
+    </>
   );
 };
 
