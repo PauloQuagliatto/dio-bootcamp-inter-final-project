@@ -26,7 +26,7 @@ Abra [http://localhost:3000](http://localhost:3000) com seu navegador para ver o
 
 É necessário que o servidor esteja rodando para poder interagir com as mensagens.
 
-Para isso clone o repositório clicando neste link: [https://github.com/nathyts/api-dioshopping](https://github.com/nathyts/api-dioshopping).
+Para isso clone o repositório clicando neste link: [https://github.com/nathyts/api-dioshopping](API-BACKEND).
 
 Mais uma vez rode o comando
 
